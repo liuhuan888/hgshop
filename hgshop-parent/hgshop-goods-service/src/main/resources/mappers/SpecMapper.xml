@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuhuan.hgshop.dao.SpecDao">
+   
+   <!-- //查询规格列表
+	List<Spec> list(String name); -->
+   
+   <select id="list" resultMap="specMaper">
+   		select * from hg_spec
+   		<where>
+   			<if test="name!=mill and name!=''">
+   				spec_name like '%${name}%'
+   			</if>
+   		</where>
+   		order by id
+   </select>
+   
+   <resultMap type="Spec" id="specMaper">
+   		<id column="id" property="id"/>
+   		<result column="spec_name" property="specName"/>
+   		<collection property="options" column="id" select="selectOptions"></collection>
+   </resultMap>
+   
+   <select id="selectOptions" resultType="SpecOption">
+   		select id,option_name optionName,spec_id specId,orders from hg_spec_option 
+   			where spec_id = #{value}
+   </select>
+
+	<!-- //添加规格
+	int addSpec(Spec spec); -->
+	<insert id="addSpec" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into hg_spec values(null,#{specName})
+	</insert>
+
+	<!-- //添加规格属性
+	int addSpecOption(SpecOption option); -->
+	<insert id="addSpecOption">
+		insert into hg_spec_option values(null,#{optionName},#{specId},#{orders})
+	</insert>
+
+	<!-- //修改规格
+	int updateSpec(Spec spec); -->
+
+	<!-- //删除规格属性
+	int deleteSpecOption(String id); -->
+
+	<!-- //删除规格
+	int deleteSpec(String id); -->
+
+	<!-- //查询一个规格（用于修改时回显）
+	Spec findById(Integer id); -->
+</mapper>
