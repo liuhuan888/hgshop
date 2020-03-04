@@ -40,7 +40,7 @@
 		<spring-data-redis.version>2.1.5.RELEASE</spring-data-redis.version>
 		<spring-data-elasticsearch.version>3.1.5.RELEASE</spring-data-elasticsearch.version>
 		<validation-api.version>2.0.1.Final</validation-api.version>
-		<fastjson.version>1.2.7</fastjson.version>
+		<fastjson.version>1.2.25</fastjson.version>
 	</properties>
 
 
