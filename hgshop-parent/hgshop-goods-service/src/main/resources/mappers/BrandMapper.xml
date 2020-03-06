@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuhuan.hgshop.dao.BrandDao">
+   
+   <!-- List<Brand> list(@Param("firstChar")String firstChar); -->
+   <select id="list" resultType="Brand">
+   		select * from hg_brand 
+   		<where>
+   			<if test="firstChar!=null and firstChar!=''">
+   				first_char like concat('%',#{firstChar},'%')
+   			</if>
+   			and deleted_flag=0
+   		</where>
+   </select>
+   
+   <!-- //添加品牌
+	int addBrand(Brand brand); -->
+	<insert id="addBrand">
+		insert into hg_brand(name,first_char,deleted_flag) values(#{name},#{firstChar},0)
+	</insert>
+
+	<!-- //删除品牌
+	int deleteBrand(Integer id); -->
+	<update id="deleteBrand">
+		update hg_brand set deleted_flag=1 where id=#{id}
+	</update>
+
+	<!-- //修改品牌
+	int updateBrand(Brand brand); -->
+	<update id="updateBrand">
+		update hg_brand set name = #{name},first_char=#{firstChar} where id=#{id}
+	</update>
+
+	<!-- //批量删除品牌
+	int deleteBatchBrand(int[] ids); -->
+	<update id="deleteBatchBrand">
+		update hg_brand set deleted_flag=1 where id in
+		<foreach collection="array" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
+	</update>
+	
+	<!-- //根据id查询品牌（用于修改回显）
+	Brand findById(Integer id); -->
+	<select id="findById" resultType="Brand">
+		select * from hg_brand where id = #{id}
+	</select>
+	
+</mapper>

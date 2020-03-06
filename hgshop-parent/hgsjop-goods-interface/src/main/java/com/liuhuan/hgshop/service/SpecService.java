@@ -24,5 +24,8 @@ public interface SpecService {
 	
 	//查询一个规格（用于修改时回显）
 	Spec findById(Integer id);
+
+	//批量删除
+	int deleteSpecBatch(int[] ids);
 	
 }

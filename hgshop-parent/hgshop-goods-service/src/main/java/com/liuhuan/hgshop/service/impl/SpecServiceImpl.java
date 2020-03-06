@@ -48,7 +48,7 @@ public class SpecServiceImpl implements SpecService{
 	//删除规格
 	@Override
 	public int deleteSpec(String id) {
-		int i = specDao.deleteSpecOption(id);
+		int i = specDao.deleteSpecOption(Integer.parseInt(id));
 		if(i>0) {
 			i = specDao.deleteSpec(id);
 		}
@@ -59,6 +59,13 @@ public class SpecServiceImpl implements SpecService{
 	@Override
 	public Spec findById(Integer id) {
 		return specDao.findById(id);
+	}
+
+	@Override
+	public int deleteSpecBatch(int[] ids) {
+		int i = specDao.deleteSpecOptionBatch(ids);
+		i=specDao.deleteSpecBatch(ids);
+		return i;
 	}
 
 	

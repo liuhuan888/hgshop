@@ -2,7 +2,7 @@ package com.liuhuan.hgshop.dao;
 
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 import com.liuhuan.hgshop.pojo.Spec;
 import com.liuhuan.hgshop.pojo.SpecOption;
@@ -22,12 +22,18 @@ public interface SpecDao {
 	int updateSpec(Spec spec);
 
 	//删除规格属性
-	int deleteSpecOption(String id);
+	int deleteSpecOption(Integer id);
 
 	//删除规格
 	int deleteSpec(String id);
 
 	//查询一个规格（用于修改时回显）
 	Spec findById(Integer id);
+
+	//批量删除
+	int deleteSpecBatch(int[] ids);
+
+	//批量删除规格属性
+	int deleteSpecOptionBatch(int[] ids);
 
 }

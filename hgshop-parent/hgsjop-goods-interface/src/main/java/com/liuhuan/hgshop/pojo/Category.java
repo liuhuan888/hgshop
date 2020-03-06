@@ -1,6 +1,9 @@
 package com.liuhuan.hgshop.pojo;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 商品分类实体类
@@ -17,8 +20,13 @@ public class Category implements Serializable {
 
 	private Integer id;
 	private Integer parentId; // 上一级别分类id
+	
+	@JsonProperty("text")
 	private String name; // 分类名称
 	private String path;// 从根分类到当前分类的路径
+	
+	@JsonProperty("nodes")
+	private List<Category> children;// 子节点列表
 
 	public Integer getId() {
 		return id;

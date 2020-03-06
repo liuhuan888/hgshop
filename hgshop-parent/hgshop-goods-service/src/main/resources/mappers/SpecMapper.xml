@@ -8,8 +8,8 @@
    <select id="list" resultMap="specMaper">
    		select * from hg_spec
    		<where>
-   			<if test="name!=mill and name!=''">
-   				spec_name like '%${name}%'
+   			<if test="name!=null and name!=''">
+   				spec_name like concat('%',#{name},'%')
    			</if>
    		</where>
    		order by id
@@ -43,9 +43,33 @@
 
 	<!-- //删除规格属性
 	int deleteSpecOption(String id); -->
+	<delete id="deleteSpecOption">
+		delete from hg_spec_option where spec_id = #{id}
+	</delete>
 
 	<!-- //删除规格
 	int deleteSpec(String id); -->
+	<delete id="deleteSpec">
+		delete from hg_spec where id = #{id}
+	</delete>
+	
+	<!-- //批量删除规格属性
+	int deleteSpecOptionBatch(int[] ids); -->
+	<delete id="deleteSpecOptionBatch" >
+		delete from hg_spec_option where spec_id in
+		<foreach collection="array" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- //批量删除
+	int deleteSpecBatch(int[] ids); -->
+	<delete id="deleteSpecBatch" >
+		delete from hg_spec where id in
+		<foreach collection="array" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
+	</delete>
 
 	<!-- //查询一个规格（用于修改时回显）
 	Spec findById(Integer id); -->
