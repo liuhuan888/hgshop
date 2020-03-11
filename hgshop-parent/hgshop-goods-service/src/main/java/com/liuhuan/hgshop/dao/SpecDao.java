@@ -36,4 +36,7 @@ public interface SpecDao {
 	//批量删除规格属性
 	int deleteSpecOptionBatch(int[] ids);
 
+	//获取所有的规格
+	List<Spec> listAll();
+
 }

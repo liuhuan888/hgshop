@@ -5,6 +5,9 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.liuhuan.hgshop.pojo.Brand;
 import com.liuhuan.hgshop.pojo.Category;
+import com.liuhuan.hgshop.pojo.Sku;
+import com.liuhuan.hgshop.pojo.Spu;
+import com.liuhuan.hgshop.pojo.SpuVo;
 
 /**
  * 
@@ -39,4 +42,20 @@ public interface GoodsService {
 	
 	List<Category> treeCategory();
 	
+	//spu管理
+	PageInfo<Spu> listSpu(Integer pageNum,SpuVo spuVo);
+	int addSpu(Spu spu);
+	int updateSpu(Spu spu);
+	int deleteSpu(Integer id);
+	int deleteSpuBatch(Integer[] ids);
+	Spu getSpu(int id);
+	
+	// sku的管理
+	PageInfo<Sku>  listSku(int pageNum,Sku sku);
+	int addSku(Sku sku);
+	//获取详情
+	Sku getSku(int id);
+	int updateSku(Sku sku);
+	int deleteSku(int id);
+	int deleteSkuBatch(int[] id);
 }

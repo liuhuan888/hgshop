@@ -1,5 +1,7 @@
 package com.liuhuan.hgshop.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 import com.liuhuan.hgshop.pojo.Spec;
 
@@ -27,5 +29,8 @@ public interface SpecService {
 
 	//批量删除
 	int deleteSpecBatch(int[] ids);
+
+	//获取所有规格
+	List<Spec> listAll();
 	
 }

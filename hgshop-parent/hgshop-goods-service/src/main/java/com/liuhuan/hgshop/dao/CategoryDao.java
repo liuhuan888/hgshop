@@ -17,5 +17,6 @@ public interface CategoryDao {
 
 	//修改分类
 	int updateCategory(Category category);
+	
 
 }

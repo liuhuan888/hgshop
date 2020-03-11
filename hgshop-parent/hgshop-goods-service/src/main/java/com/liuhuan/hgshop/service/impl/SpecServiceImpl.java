@@ -68,5 +68,12 @@ public class SpecServiceImpl implements SpecService{
 		return i;
 	}
 
+	//获取所有的规格
+	@Override
+	public List<Spec> listAll() {
+		
+		return specDao.listAll();
+	}
+
 	
 }

@@ -26,4 +26,8 @@
    <update id="updateCategory">
    		update hg_category set name = #{name} where id = #{id}
    </update>
+   
+   <select id="findById" resultType="Category">
+   		select id,name,path from hg_category where id = #{value}
+   </select>
 </mapper>

@@ -17,6 +17,7 @@ public class SpecOption implements Serializable {
 	private String optionName; // 规格属性名称
 	private Integer specId; // 规格id
 	private Integer orders = 0; // 排序值
+	private String specName;  //属性名称
 
 	@Override
 	public int hashCode() {
@@ -47,6 +48,15 @@ public class SpecOption implements Serializable {
 		} else if (!optionName.equals(other.optionName))
 			return false;
 		return true;
+	}
+
+	
+	public String getSpecName() {
+		return specName;
+	}
+
+	public void setSpecName(String specName) {
+		this.specName = specName;
 	}
 
 	public Integer getId() {
@@ -84,19 +94,8 @@ public class SpecOption implements Serializable {
 	@Override
 	public String toString() {
 		return "SpecOption [id=" + id + ", optionName=" + optionName + ", specId=" + specId + ", orders=" + orders
-				+ "]";
+				+ ", specName=" + specName + "]";
 	}
 
-	public SpecOption(Integer id, String optionName, Integer specId, Integer orders) {
-		super();
-		this.id = id;
-		this.optionName = optionName;
-		this.specId = specId;
-		this.orders = orders;
-	}
-
-	public SpecOption() {
-		super();
-	}
 
 }

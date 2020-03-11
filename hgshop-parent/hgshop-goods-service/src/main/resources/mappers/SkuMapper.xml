@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuhuan.hgshop.dao.SkuDao">
+   <!-- //sku列表
+	List<Sku> list(Sku sku); -->
+	
+	<select id="list" resultMap="skuMapper">
+		SELECT * FROM hg_sku ORDER BY spu_id DESC,id DESC
+	</select>
+	
+	<resultMap type="Sku" id="skuMapper">
+		<id column="id" property="id"></id>
+		<result column="sell_point" property="sellPoint"/>
+		<result column="stock_count" property="stockCount"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="cost_price" property="costPrice"/>	
+		<result column="market_price" property="marketPrice"/>
+		<result column="spu_id" property="spuId"/>
+		<result column="cart_thumbnail" property="cartThumbnail"/>
+		<association property="spu" column="spu_id" select="com.liuhuan.hgshop.dao.SpuDao.findById"></association>
+		<collection property="specs" column="detailId" select="findSpecsBySkuid"></collection>
+	</resultMap>
+	
+	<select id="findSpecsBySkuid" resultType="SpecOption">
+		select  spec.id as specId, 
+		        spec.spec_name as specName ,
+		        specval.id, 
+		        specval.option_name as optionName  
+		       from hg_sku_spec as sku 
+		   LEFT JOIN hg_spec as spec on spec.id= sku.spec_id 
+		   LEFT JOIN hg_spec_option as specval ON specval.id=  sku.spec_option_id
+ 			where sku.sku_id=#{value}
+	</select>
+
+	<!-- //添加sku
+	int addSku(Sku sku); -->
+	
+	<insert id="addSku" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into hg_sku(spu_id,title,sell_point,price,status) 
+			values(#{spuId},#{title},#{sellPoint},#{price},#{status})
+	</insert>
+
+	<!-- //添加商品属性
+	addSkuSpec(@Param("skuId") int skuId,@Param("so") SpecOption so); -->
+	
+	<insert id="addSkuSpec">
+		INSERT INTO hg_sku_spec(sku_id,spec_id,spec_option_id)
+			values(#{skuId},#{so.specId},#{so.id})
+	</insert>
+
+	<!-- //根据id查询sku
+	Sku getSku(int id); -->
+   
+	<select id="getSku" resultMap="skuMapper">
+		SELECT *, id as detailId  FROM hg_sku WHERE id=#{value}
+	</select>
+</mapper>

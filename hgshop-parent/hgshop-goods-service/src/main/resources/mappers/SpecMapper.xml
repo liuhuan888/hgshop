@@ -15,6 +15,12 @@
    		order by id
    </select>
    
+   <!-- //获取所有的规格
+	List<Spec> listAll(); -->
+	<select id="listAll" resultType="Spec">
+   		select id, spec_name specName from hg_spec ORDER BY spec_name
+   	</select>
+   
    <resultMap type="Spec" id="specMaper">
    		<id column="id" property="id"/>
    		<result column="spec_name" property="specName"/>
@@ -73,4 +79,7 @@
 
 	<!-- //查询一个规格（用于修改时回显）
 	Spec findById(Integer id); -->
+	<select id="findById"  resultMap="specMaper">
+   		select * from hg_spec  WHERE id=#{value}
+	</select>
 </mapper>

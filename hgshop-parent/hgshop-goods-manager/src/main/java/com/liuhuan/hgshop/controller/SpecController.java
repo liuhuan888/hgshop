@@ -1,5 +1,7 @@
 package com.liuhuan.hgshop.controller;
 
+import java.util.List;
+
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.liuhuan.hgshop.pojo.Spec;
+import com.liuhuan.hgshop.pojo.SpecOption;
 import com.liuhuan.hgshop.service.SpecService;
 
 @Controller
@@ -70,5 +73,17 @@ public class SpecController {
 	public String delSpecBatch(@RequestParam(name="ids[]")int[] ids) {
 		int i = specService.deleteSpecBatch(ids);
 		return i>0?"success":"false";
+	}
+	
+	/**
+	 * 查询一个规格（用于修改时回显）
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("getSpec")
+	@ResponseBody
+	public Spec getSpec(Integer id){
+		Spec spec = specService.findById(id);
+		return spec;
 	}
 }
