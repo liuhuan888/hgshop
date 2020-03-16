@@ -49,6 +49,7 @@ public interface GoodsService {
 	int deleteSpu(Integer id);
 	int deleteSpuBatch(Integer[] ids);
 	Spu getSpu(int id);
+	List<Brand> getAllBrands();
 	
 	// sku的管理
 	PageInfo<Sku>  listSku(int pageNum,Sku sku);
@@ -58,4 +59,6 @@ public interface GoodsService {
 	int updateSku(Sku sku);
 	int deleteSku(int id);
 	int deleteSkuBatch(int[] id);
+	//根据spuId查询sku
+	List<Sku> listSkuBySpu(Integer spuId);
 }

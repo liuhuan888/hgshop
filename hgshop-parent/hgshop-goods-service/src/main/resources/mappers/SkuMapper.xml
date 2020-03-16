@@ -55,4 +55,10 @@
 	<select id="getSku" resultMap="skuMapper">
 		SELECT *, id as detailId  FROM hg_sku WHERE id=#{value}
 	</select>
+	
+	<!-- //根据spuId查询sku
+	List<Sku> listBySpu(Integer spuId); -->
+	<select id="listBySpu" resultMap="skuMapper">
+		SELECT *, id as detailId FROM hg_sku WHERE spu_id=${value} ORDER BY id DESC
+	</select>
 </mapper>

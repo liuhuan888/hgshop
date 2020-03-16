@@ -10,7 +10,7 @@
 	<resultMap type="Spu" id="spuMapper">
 		<id column="id" property="id"/>
 		<result column="goods_name" property="goodsName"/>
-		<result column="is_marketable" property="isMarkerable"/>
+		<result column="is_marketable" property="isMarkertable"/>
 		<result column="brand_id" property="brandId"/>
 		<result column="category_id" property="categoryId"/>
 		<result column="small_pic" property="smallPic"/>
@@ -24,7 +24,7 @@
 	</select>
 
 	<!-- int addSpu(Spu spu); -->
-	<insert id="add" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	<insert id="addSpu" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 		insert into hg_spu(goods_name,is_marketable,brand_id,caption,category_id,small_pic)
 		values(#{goodsName},#{isMarketable},#{brandId},#{caption},#{categoryId},#{smallPic})
 	</insert>

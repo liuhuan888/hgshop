@@ -21,4 +21,7 @@ public interface SkuDao {
 	//根据id查询sku
 	Sku getSku(int id);
 
+	//根据spuId查询sku
+	List<Sku> listBySpu(Integer spuId);
+
 }

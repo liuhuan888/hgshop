@@ -16,7 +16,7 @@ public class Spu implements Serializable {
 	private static final long serialVersionUID = 8131450169816060156L;
 	private Integer id;
 	private String goodsName;
-	private String isMarkerable; // 是否上线
+	private String isMarketable; // 是否上线
 	private Integer brandId; // 品牌
 	private String caption; // 标题
 	private Integer categoryId; // 分类
@@ -41,12 +41,12 @@ public class Spu implements Serializable {
 		this.goodsName = goodsName;
 	}
 
-	public String getIsMarkerable() {
-		return isMarkerable;
+	public String getIsMarkertable() {
+		return isMarketable;
 	}
 
-	public void setIsMarkerable(String isMarkerable) {
-		this.isMarkerable = isMarkerable;
+	public void setIsMarkertable(String isMarketable) {
+		this.isMarketable = isMarketable;
 	}
 
 	public Integer getBrandId() {
@@ -99,17 +99,17 @@ public class Spu implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Spu [id=" + id + ", goodsName=" + goodsName + ", isMarkerable=" + isMarkerable + ", brandId=" + brandId
+		return "Spu [id=" + id + ", goodsName=" + goodsName + ", isMarkerable=" + isMarketable + ", brandId=" + brandId
 				+ ", caption=" + caption + ", categoryId=" + categoryId + ", smallPic=" + smallPic + ", brand=" + brand
 				+ ", category=" + category + "]";
 	}
 
-	public Spu(Integer id, String goodsName, String isMarkerable, Integer brandId, String caption, Integer categoryId,
+	public Spu(Integer id, String goodsName, String isMarketable, Integer brandId, String caption, Integer categoryId,
 			String smallPic, Brand brand, Category category) {
 		super();
 		this.id = id;
 		this.goodsName = goodsName;
-		this.isMarkerable = isMarkerable;
+		this.isMarketable = isMarketable;
 		this.brandId = brandId;
 		this.caption = caption;
 		this.categoryId = categoryId;

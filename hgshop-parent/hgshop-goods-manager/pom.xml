@@ -96,6 +96,31 @@
 			<artifactId>hgsjop-goods-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+				<groupId>org.springframework.kafka</groupId>
+				<artifactId>spring-kafka</artifactId>
+				<version>${spring-kafka.version}</version>
+			</dependency>
+			<!-- kafka的依赖 -->
+			<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka_2.10</artifactId>
+				<version>${kafka.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>jmxri</artifactId>
+						<groupId>com.sun.jmx</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>jms</artifactId>
+						<groupId>javax.jms</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>jmxtools</artifactId>
+						<groupId>com.sun.jdmk</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
    </dependencies>
 
 	<build>

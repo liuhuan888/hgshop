@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.liuhuan.hgshop.dao.BrandDao;
 import com.liuhuan.hgshop.dao.CategoryDao;
 import com.liuhuan.hgshop.dao.SkuDao;
 import com.liuhuan.hgshop.dao.SpuDao;
@@ -15,8 +17,10 @@ import com.liuhuan.hgshop.pojo.Category;
 import com.liuhuan.hgshop.pojo.Sku;
 import com.liuhuan.hgshop.pojo.SpecOption;
 import com.liuhuan.hgshop.pojo.Spu;
+import com.liuhuan.hgshop.pojo.SpuEsVo;
 import com.liuhuan.hgshop.pojo.SpuVo;
 import com.liuhuan.hgshop.service.GoodsService;
+import com.liuhuan.hgshop.utils.ElSearchUtil;
 
 @Service(interfaceClass = GoodsService.class)
 public class GoodsServiceImpl implements GoodsService {
@@ -27,6 +31,13 @@ public class GoodsServiceImpl implements GoodsService {
 	private SpuDao spuDao;
 	@Autowired
 	private SkuDao skuDao;
+	@Autowired
+	private BrandDao brandDao;
+	@Autowired
+	KafkaTemplate<String, String> kafakTemplate;
+	// 工具类
+	@Autowired
+	ElSearchUtil<SpuEsVo> elSearchUtils;
 	
 	@Override
 	public int addBrand(Brand brand) {
@@ -88,7 +99,15 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public int addSpu(Spu spu) {
-		return spuDao.addSpu(spu);
+		int i = spuDao.addSpu(spu);
+		// 将该数据收集到搜搜引擎当中
+		Spu newSpu = spuDao.findById(spu.getId());
+		SpuEsVo spuEsVo = new SpuEsVo(newSpu);
+		System.out.println(" >>>>>>>>>>> spuEsVo is " + spuEsVo);
+		elSearchUtils.saveObject(spu.getId().toString(), spuEsVo);
+		// 使用kafak 去发送消息  把商品id 发送到主题MyAddSpu 上。
+		kafakTemplate.send("1709d", "addspu",spu.getId().toString() );
+		return i;
 	}
 
 	@Override
@@ -153,6 +172,16 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public Spu getSpu(int id) {
 		return spuDao.findById(id);
+	}
+
+	@Override
+	public List<Sku> listSkuBySpu(Integer spuId) {
+		return skuDao.listBySpu(spuId);
+	}
+
+	@Override
+	public List<Brand> getAllBrands() {
+		return brandDao.listAll();
 	}
 
 }

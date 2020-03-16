@@ -3,6 +3,7 @@ package com.liuhuan.hgshop.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.liuhuan.hgshop.pojo.Brand;
 
@@ -25,5 +26,15 @@ public interface BrandDao {
 
 	//根据id查询品牌（用于修改回显）
 	Brand findById(Integer id);
+
+	/**
+	 * 获取所有的品牌
+	 * @return
+	 */
+	@Select("SELECT id,name,first_char as firstChar "
+			+ " FROM hg_brand "
+			+ "where deleted_flag=0"
+			+ " ORDER BY name ")
+	List<Brand> listAll();
 
 }

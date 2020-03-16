@@ -20,10 +20,10 @@
 			<th>${spu.id}</th>
 			<th>${spu.goodsName}</th>
 			<th>${spu.caption}</th>
-			<th>${spu.isMarkerable==1?"在售":"未售"}</th>
+			<th>${spu.isMarkertable==1?"在售":"未售"}</th>
 			<th>${spu.brand.name}</th>
 			<th>${spu.category.name}</th>
-			<th>图</th>
+			<th><img width="100px" height="100px" src="/pic/${spu.smallPic}"></th>
 			<th>
 				<button type="button" class="btn btn-primary" >详情</button>
 				<button type="button" class="btn btn-danger" >删除</button>
